@@ -3,17 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title>IWAJU-TECH</title>
-    <link rel="stylesheet" href="index.css">
+    <style>
+        button{
+            background-color: rgb(150, 150, 194);
+            height: 50px;
+            width: 100px;
+            text-transform: capitalize;
+            margin: 5px;
+        }
+
+        audio{
+            max-width: 300px;
+            margin: 10px 0;
+        }
+
+        #contenu{
+            width: 1000px;
+            height: 50px;
+            border: solid;
+        }
+
+        #Saisie {
+            position: absolute;
+            bottom: 0;
+        }
+
+        section{
+            
+            border-radius: 20px;
+            height: 700px;
+        }
+
+    </style>
 </head>
 <body>
+    <script src='/socket.io/socket.io.js'>//Se connecter sur la socket</script>
+    <script>
+        var socket = io();
+        
+        var send = function(){
+            var text = document.getElementById('contenu').value;
+            if(text) socket.emit('messages', text);
+            
+            var fichierImage = document.getElementById('photo');
+            if (fichierImage.files.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    socket.emit('messages', event.target.result);
+                };
+                reader.readAsDataURL(fichierImage.files[0]);
+            }
+            
+            var fichierSon = document.getElementById('son');
+            if (fichierSon.files.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    socket.emit('messages', event.target.result);
+                };
+                reader.readAsDataURL(fichierSon.files[0]);
+            }
+            
+            document.getElementById('contenu').value = '';
+            fichierImage.value = '';
+            fichierSon.value = '';
+        }//Envoyer le message
+
+        var receive = function(message){
+            var li = document.createElement('li');
+            
+            // Si c'est une image
+            if (typeof message === 'string' && message.startsWith('data:image')) {
+                var img = document.createElement('img');
+                img.src = message;
+                img.style.maxWidth = '200px';
+                img.style.maxHeight = '200px';
+                li.appendChild(img);
+            } 
+            // Si c'est du son
+            else if (typeof message === 'string' && message.startsWith('data:audio')) {
+                var audio = document.createElement('audio');
+                audio.src = message;
+                audio.controls = true;
+                li.appendChild(audio);
+            }
+            // Sinon c'est du texte
+            else {
+                li.innerText = message;
+            }
+            
+            document.getElementById('Mlistes').appendChild(li);
+        }//Réception
+        socket.on('messages', receive)//Ecouter le message qui arrive
+    </script>
     <section>
         <div id="Affichage">
-            <ul></ul>
+            <ul id="Mlistes"></ul>
         </div>
         <div id="Saisie">
-            <input type="text" placeholder="Taper votre message......">
-            <button>Envoyer</button>
-            
+            <input id="contenu" type="text" placeholder="Taper votre message ici......" >
+            <img src="11868808.png" alt="" srcset="">
+            <input id="photo" type="file" name="photo" accept="image/*">
+            <input id="son" type="file" name="son" accept="audio/*">
+            <button onclick="send()">Envoyer</button>          
         </div>
     </section>
 </body>

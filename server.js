@@ -4,6 +4,7 @@ var io = require('socket.io')(http);
 var express = require('express');
 
 app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname + '/autrespages'));
 
 //Fonction trouver adresse IP locale
 const os = require('os');

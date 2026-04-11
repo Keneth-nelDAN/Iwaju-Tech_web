@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <title>IWAJU-TECH</title>
     <style>
+        #bas {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        #bas, #haut {
+            display: flex;
+            margin-right: 20px;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #b2b7bd;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -31,6 +40,19 @@
             overflow-y: auto;
             padding: 20px;
             background-color: #e5ddd5; /* Couleur fond type chat */
+        }
+
+        img {
+            border-radius: 200px;
+            border: solid;
+            border-color: black;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         #Mlistes {
@@ -93,6 +115,19 @@
         audio {
             display: block;
             margin-top: 5px;
+        }
+
+        #haut {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        h1{
+            text-align: center;
+            background-color: #a2bcd5;
+            height: 10vh;
+            border: solid;
+            border-radius: 20px;
         }
 
         img {
@@ -162,13 +197,30 @@
         }//Recevoir les messages
         socket.on('messages', receive)//Ecouter le message qui arrive
     </script>
+    <header>
+        <h1>Welcome to Mirroring and Data Sync App</h1>
+        <nav>
+            <ul id="ligne1">
+                <li id="haut"> <a href="#"><img src="message-7086820_1280.png" width="150px" alt="" srcset=""></a> </li>
+                <h4>Partager un message</h4>
+                <li id="haut"> <a href="#"><img src="11868808.png" width="150px" alt="" srcset=""></a> </li>
+                <h4>Partager une image</h4>
+            </ul>
+            <ul id="ligne2">
+                <li id="bas"> <a href="#"><img src="pngtree-sound-bar-icon-vector-black-png-image_4546805.png" width="150px" height="150px" alt="" srcset=""></a> </li>
+                <h4>Partager un audio</h4>
+                <li id="bas"> <a href="#"><img src="screen-mirroring-icon-design-symbol-vector.jpg" width="150px" alt="" srcset=""></a> </li>
+                <h4>Faire un partage d'écran</h4>
+            </ul>
+        </nav>
+    </header>
     <section>
         <div id="Affichage">
             <ul id="Mlistes"></ul>
         </div>
         <div id="Saisie">
             <input id="contenu" type="text" placeholder="Taper votre message ici......" >
-            <img src="11868808.png" alt="" srcset="">
+            
             <input id="photo" type="file" name="photo" accept="image/*">
             <input id="son" type="file" name="son" accept=".mp3,audio/mpeg">
             <button type="button" onclick="send()">Envoyer</button>          

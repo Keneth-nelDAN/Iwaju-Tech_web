@@ -14,3 +14,6 @@ Vidéo YouTube du Cours de Mike Codeur sur les WebSockets (https://youtu.be/o8Fn
 # Difficulées
 Je n'avais jamais appris a faire du JavaScript auparavant. J'ai juste suivi quelque tuto et lu quelques informations sur ça.
 Pour le moment j'ai bien compris comment afficher les messages textes en temps réels. La vrai difficulté était pour les images et les audios; mais je commence à peu à peu assimilé
+
+## ########################################################
+## Screen Mirroring (partage vidéo d'écran en direct)
